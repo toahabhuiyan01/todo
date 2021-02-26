@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Users } from '../users';
 import { Tasks } from '../tasks';
+import { ResttodoService } from '../resttodo.service';
 import { from } from 'rxjs';
 
 @Component({
@@ -12,12 +13,39 @@ import { from } from 'rxjs';
 export class ResttodoComponent implements OnInit {
 
   users: Users[] = [];
-  todos: Tasks[] = [];
+  tasks: Tasks[] = [];
   task : any;
 
-  constructor() { }
+  constructor(public rs: ResttodoService, private router: Router) { }
 
   ngOnInit(): void {
+    this.rs.getTasks().subscribe(response => this.tasks = response);
+  }
+
+  Search() {
+    if(this.task === ""){
+      this.ngOnInit();
+    }
+    else {
+      this.tasks = this.tasks.filter(res => {
+        return res.task.toLocaleLowerCase().match(this.task.toLocaleLowerCase());
+      });
+    }
+  }
+
+  deleteTask(val: any) {
+    if(confirm("Are you sure?")){
+      this.rs.deleteTask(val).subscribe(data => {
+
+      });
+      this.rs.getTasks().subscribe(response => {
+        this.tasks = response
+      });
+    }
+  }
+
+  update(id: any) {
+    this.router.navigate(['/update', id]);
   }
 
 }

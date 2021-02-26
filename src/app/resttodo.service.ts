@@ -25,7 +25,7 @@ export class ResttodoService {
     "task": ""
   };
 
-  getTask(): Observable<Tasks[]> {
+  getTasks(): Observable<Tasks[]> {
     return this.http.get<Tasks[]> (this.urltask);
   }
 

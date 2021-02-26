@@ -3,6 +3,10 @@
 </h1>
 
 <nav class="navbar">
+    <input type="text" class="form-control" name="task" [(ngModel)]="task" (ngModelChange)="Search()" placeholder="Enter to search">
+</nav>
+
+<table class="table table-bordered" style="border: 5px solid;">
     <thead>
         <tr>
             <th>Task</th>
@@ -10,6 +14,12 @@
         </tr>
     </thead>
     <tbody>
-        
+        <tr *ngFor="let task of tasks">
+            <td> {{ task.task }} </td>
+            <td>
+                <button>Delete</button>
+                <button>Update</button>
+            </td>
+        </tr>
     </tbody>
-</nav>
+</table>
