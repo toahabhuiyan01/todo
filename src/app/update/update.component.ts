@@ -26,19 +26,25 @@ export class UpdateComponent implements OnInit {
       this.rs.getUpdateTask(this.val).subscribe(data => this.taskUpdate = data);
     }
     else {
-
+      if(this.taskUpdate === undefined){
+        this.taskUpdate = this.create();
+      }
     }
     
   }
 
   update(){
-    this.rs.updateTask(this.taskUpdate).subscribe(data =>{});
+    this.rs.updateTask(this.taskUpdate).subscribe(data =>this.taskUpdate = data);
     this.getTask();
-    this.router.navigate(['']);
+    this.router.navigate(['task-list']);
   }
 
   getTask() {
     this.rs.getTasks().subscribe(response => this.taskUpdate = response);
+  }
+
+  create() {
+    this.rs.createTask(this.taskUpdate).subscribe(data => this.taskUpdate = data)
   }
 
 }

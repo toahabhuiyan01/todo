@@ -39,11 +39,16 @@ export class ResttodoService {
     return this.http.get<Tasks> (url, this.httpOptions);
   }
 
-  updateTask(task: TaskFetch): Observable<Tasks> {
-    const url = `${this.urltask}/${task.id}`;
-    return this.http.put<Tasks> (url, this.deftask, this.httpOptions).pipe(
-      map(() => task)
+  updateTask(taskUpdate: TaskFetch): Observable<Tasks> {
+    const url = `${this.urltask}/${taskUpdate.id}`;
+    return this.http.put<Tasks> (url, taskUpdate, this.httpOptions).pipe(
+      map(() => taskUpdate)
     );
+  }
+
+  createTask(taskUpdate: TaskFetch): Observable<Tasks> {
+    const url = `${this.urltask}`;
+    return this.http.post<Tasks>(url, this.deftask, this.httpOptions).pipe();
   }
 
 }
