@@ -3,23 +3,25 @@
 </h1>
 
 <nav class="navbar">
-    <input type="text" class="form-control" name="task" [(ngModel)]="task" (ngModelChange)="Search()" placeholder="Enter to search">
+    <input type="text" class="form-control" name="taskSearch" [(ngModel)]="taskSearch" (ngModelChange)="Search()" placeholder="Enter to search">
 </nav>
 
-<table class="table table-bordered" style="border: 5px solid;">
-    <thead>
-        <tr>
-            <th>Task</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let task of tasks">
-            <td> {{ task.task }} </td>
-            <td>
-                <button>Delete</button>
-                <button>Update</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="container-fluid">
+    <table class="table table-bordered justify-content-around" style="border: 5px solid; max-width: 70%;">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let task of tasks">
+                <td> {{ task.task }} </td>
+                <td>
+                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-primary">Update</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

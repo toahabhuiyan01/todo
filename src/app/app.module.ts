@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ResttodoComponent } from './resttodo/resttodo.component';
 import { UpdateComponent } from './update/update.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,9 @@ import { UpdateComponent } from './update/update.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

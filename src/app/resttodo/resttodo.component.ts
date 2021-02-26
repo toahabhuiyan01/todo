@@ -14,7 +14,7 @@ export class ResttodoComponent implements OnInit {
 
   users: Users[] = [];
   tasks: Tasks[] = [];
-  task : any;
+  taskSearch : any;
 
   constructor(public rs: ResttodoService, private router: Router) { }
 
@@ -23,12 +23,12 @@ export class ResttodoComponent implements OnInit {
   }
 
   Search() {
-    if(this.task === ""){
+    if(this.taskSearch === ""){
       this.ngOnInit();
     }
     else {
       this.tasks = this.tasks.filter(res => {
-        return res.task.toLocaleLowerCase().match(this.task.toLocaleLowerCase());
+        return res.task.toLocaleLowerCase().match(this.taskSearch.toLocaleLowerCase());
       });
     }
   }
