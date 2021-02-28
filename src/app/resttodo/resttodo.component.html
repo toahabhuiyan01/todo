@@ -7,7 +7,7 @@
 </nav>
 
 <div class="container-fluid">
-    <table class="table table-bordered justify-content-around" style="border: 5px solid; max-width: 70%;">
+    <table class="table table-striped justify-content-around jumbotron" style="max-width: 70%;">
         <thead>
             <tr>
                 <th>Task</th>
@@ -18,10 +18,15 @@
             <tr *ngFor="let task of tasks">
                 <td> {{ task.task }} </td>
                 <td>
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-primary">Update</button>
+                    <button class="btn btn-danger" (click)="deleteTask(task.id)">Delete</button>&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-primary" (click)="update(task.id)">Update</button>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+
+<div class="justify-content-center">
+    <button class="btn btn-primary" (click)="create()">create new task</button>&nbsp;&nbsp;&nbsp;
+    <button class="btn btn-danger" (click)="logout()">logout</button>
 </div>

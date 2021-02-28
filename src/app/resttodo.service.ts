@@ -20,6 +20,8 @@ export class ResttodoService {
   constructor(private http: HttpClient) { }
 
   urltask: string = "http://localhost:3000/Tasks";
+  urluser: string = "http://localhost:3000/Users";
+
   deftask = {
     "id": null,
     "task": ""
@@ -36,7 +38,9 @@ export class ResttodoService {
 
   getUpdateTask(id: number): Observable<Tasks> {
     const url = `${this.urltask}/${id}`;
-    return this.http.get<Tasks> (url, this.httpOptions);
+    let task = this.http.get<Tasks> (url, this.httpOptions);
+    console.log(task);
+    return task;
   }
 
   updateTask(taskUpdate: TaskFetch): Observable<Tasks> {
@@ -49,6 +53,24 @@ export class ResttodoService {
   createTask(taskUpdate: TaskFetch): Observable<Tasks> {
     const url = `${this.urltask}`;
     return this.http.post<Tasks>(url, this.deftask, this.httpOptions).pipe();
+  }
+
+  // getUser() {
+  //   const url = 'http://localhost:3000/Users/1190';
+  //   // console.log();
+  //   let user = this.http.get(url);
+  //   console.log(url, user);
+  //   return user;
+  // }
+
+  getUser(): Observable<any> {
+    const url = 'http://localhost:3000/Users/1190';
+    return this.http.get(url);
+  }
+
+  updateUser(userUpdate: Users): Observable<Users> {
+    const url = `${this.urluser}/${userUpdate.id}`;
+    return this.http.put<Users>(url, userUpdate, this.httpOptions).pipe();    
   }
 
 }

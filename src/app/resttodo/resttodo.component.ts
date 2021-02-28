@@ -12,14 +12,22 @@ import { from } from 'rxjs';
 })
 export class ResttodoComponent implements OnInit {
 
-  users: Users[] = [];
   tasks: Tasks[] = [];
   taskSearch : any;
+  userLogin: any;
+  userAuth: any;
 
   constructor(public rs: ResttodoService, private router: Router) { }
 
   ngOnInit(): void {
-    this.rs.getTasks().subscribe(response => this.tasks = response);
+    this.rs.getTasks().subscribe(response => {
+      this.rs.getUser().subscribe(response => {
+        this.userAuth = response;if(this.userAuth.token === ""){
+          this.router.navigate(['login']);
+          
+        }});
+      this.tasks = response;
+    });
   }
 
   Search() {
@@ -46,6 +54,21 @@ export class ResttodoComponent implements OnInit {
 
   update(id: any) {
     this.router.navigate(['/update', id]);
+  }
+
+  logout() {
+    this.userLogin = {
+      "id": "1190",
+      "username": "demo",
+      "password": "demo",
+      "token": ""
+    }
+    this.rs.updateUser(this.userLogin).subscribe(response => {});
+    this.router.navigate(['login']);
+  }
+
+  create() {
+    this.router.navigate(['create']);
   }
 
 }

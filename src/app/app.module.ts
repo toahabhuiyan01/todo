@@ -8,12 +8,14 @@ import { UpdateComponent } from './update/update.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { from } from 'rxjs';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ResttodoComponent,
-    UpdateComponent
+    UpdateComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
