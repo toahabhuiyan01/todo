@@ -22,11 +22,6 @@ export class ResttodoService {
   urltask: string = "http://localhost:3000/Tasks";
   urluser: string = "http://localhost:3000/Users";
 
-  deftask = {
-    "id": null,
-    "task": ""
-  };
-
   getTasks(): Observable<Tasks[]> {
     return this.http.get<Tasks[]> (this.urltask);
   }
@@ -52,16 +47,8 @@ export class ResttodoService {
 
   createTask(taskUpdate: TaskFetch): Observable<Tasks> {
     const url = `${this.urltask}`;
-    return this.http.post<Tasks>(url, this.deftask, this.httpOptions).pipe();
+    return this.http.post<Tasks>(url, taskUpdate, this.httpOptions).pipe();
   }
-
-  // getUser() {
-  //   const url = 'http://localhost:3000/Users/1190';
-  //   // console.log();
-  //   let user = this.http.get(url);
-  //   console.log(url, user);
-  //   return user;
-  // }
 
   getUser(): Observable<any> {
     const url = 'http://localhost:3000/Users/1190';
