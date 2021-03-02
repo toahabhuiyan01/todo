@@ -53,7 +53,6 @@ export class UpdateComponent implements OnInit {
   }
 
   create() {
-    alert("creating task")
     this.rs.createTask(this.taskUpdate).subscribe(data => this.taskUpdate = data);
     this.getTask();
     this.router.navigate(['task-list']);

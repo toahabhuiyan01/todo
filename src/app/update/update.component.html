@@ -1,17 +1,25 @@
-<div class="container-fluid">
+<div class="container-fluid border">
     <div class="form-group">
-        <label>Task</label>
-        <input rows="8" type="text" class="form-control" [(ngModel)]="taskUpdate.task">
+        <div class="row justify-content-center pt-5 pb-2">
+            <h1>Task</h1>
+        </div>
+        <div class="row justify-content-center">
+            <textarea rows="8" type="text" class="form-control col-lg-6 col-sm-8 col-md-8" [(ngModel)]="taskUpdate.task"></textarea>
+        </div>
     </div>
     <div >    
         <ng-template [ngIf]="update_task === false">
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" (click)="create()">Create</button>
+                <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-primary col-3" (click)="create()">Add Task</button>
+                </div>
             </div>
         </ng-template>
         <ng-template [ngIf]="update_task === true">
             <div class="form-group">
-                <button type="submit" class="btn btn-danger" (click)="update()">Update</button>
+                <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-danger col-3" (click)="update()">Update</button>
+                </div>
             </div>
         </ng-template>
     </div>

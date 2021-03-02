@@ -4,20 +4,23 @@ import { Users } from '../users';
 import { Tasks } from '../tasks';
 import { ResttodoService } from '../resttodo.service';
 import { from } from 'rxjs';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-resttodo',
   templateUrl: './resttodo.component.html',
-  styleUrls: ['./resttodo.component.css']
+  styleUrls: ['./resttodo.component.css'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class ResttodoComponent implements OnInit {
 
   tasks: Tasks[] = [];
+  viewTask: any;
   taskSearch : any;
   userLogin: any;
   userAuth: any;
 
-  constructor(public rs: ResttodoService, private router: Router) { }
+  constructor(public rs: ResttodoService, private router: Router, config: NgbModalConfig, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.rs.getTasks().subscribe(response => {
@@ -42,6 +45,7 @@ export class ResttodoComponent implements OnInit {
   }
 
   deleteTask(val: any) {
+    this.modalService.dismissAll();
     if(confirm("Are you sure?")){
       this.rs.deleteTask(val).subscribe(data => {
 
@@ -53,6 +57,7 @@ export class ResttodoComponent implements OnInit {
   }
 
   update(id: any) {
+    this.modalService.dismissAll();
     this.router.navigate(['/update', id]);
   }
 
@@ -69,6 +74,13 @@ export class ResttodoComponent implements OnInit {
 
   create() {
     this.router.navigate(['create']);
+  }
+
+
+  open(content: any, taskView: any) {
+    this.viewTask = taskView;
+    console.log(content, this.viewTask);
+    this.modalService.open(content);
   }
 
 }
