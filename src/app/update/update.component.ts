@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResttodoService } from '../resttodo.service';
 import { TaskFetch } from '../resttodo/taskFetch';
+import { LocalStorageService } from '../local-storage.service';
 import { Tasks } from '../tasks';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-update',
@@ -12,7 +14,7 @@ import { Tasks } from '../tasks';
 export class UpdateComponent implements OnInit {
   userAuth: any;
 
-  constructor(public route: ActivatedRoute, public router: Router, public rs:ResttodoService) { }
+  constructor(public route: ActivatedRoute, public router: Router, public rs: ResttodoService, public ls: LocalStorageService) { }
 
   val: any;
   tasks: Tasks[] = [];
@@ -24,6 +26,12 @@ export class UpdateComponent implements OnInit {
   update_task = false;
 
   ngOnInit(): void {
+
+    let tokenAuth = this.ls.get('islogged');
+    if(tokenAuth === null) {
+      this.router.navigate(['login']);
+    }
+
     let sub = this.route.params.subscribe(params =>
       {
         this.val = params['id'];

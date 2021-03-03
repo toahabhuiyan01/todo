@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Users } from '../users';
 import { ResttodoService } from '../resttodo.service';
+import { LocalStorageService } from '../local-storage.service';
 import { from } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -21,19 +22,29 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(public rs: ResttodoService, private router: Router) { }
-
+  constructor(public rs: ResttodoService, private router: Router, public ls: LocalStorageService) { }
+  
   ngOnInit(): void {
-    this.rs.getUser().subscribe(response => {this.userLogin = response;if(this.userLogin.token === "loggedin"){this.router.navigate(['task-list']);}});
+    let tokenAuth = this.ls.get('islogged');
+    if(tokenAuth !== null){
+      this.router.navigate(['task-list']);
+    }
+    
+    this.rs.getUser().subscribe(response => {this.userLogin = response;});
   }
 
   login(){
     if(this.username === this.userLogin.username && this.password === this.userLogin.password){
       console.log("successfull");
-      this.userLogin.token = "loggedin";
-      console.log(this.userLogin);
-      this.rs.updateUser(this.userLogin).subscribe(response => {});
-      this.router.navigate(['task-list']);
+
+      let tokenAuth = this.ls.set('islogged', this.userLogin.username);
+      if(tokenAuth) {
+        this.userLogin.token = "loggedin";
+        console.log(this.userLogin);
+        this.rs.updateUser(this.userLogin).subscribe(response => {});
+        this.router.navigate(['task-list']);
+      }
+
     }
   }
 

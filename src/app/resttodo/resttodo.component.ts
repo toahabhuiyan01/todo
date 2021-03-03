@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { Users } from '../users';
 import { Tasks } from '../tasks';
 import { ResttodoService } from '../resttodo.service';
+import { LocalStorageService } from '../local-storage.service';
 import { from } from 'rxjs';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-resttodo',
@@ -20,15 +22,16 @@ export class ResttodoComponent implements OnInit {
   userLogin: any;
   userAuth: any;
 
-  constructor(public rs: ResttodoService, private router: Router, config: NgbModalConfig, private modalService: NgbModal) { }
+  constructor(public rs: ResttodoService, private router: Router, config: NgbModalConfig, private modalService: NgbModal, public ls: LocalStorageService) { }
 
   ngOnInit(): void {
+
+    let tokenAuth = this.ls.get('islogged');
+    if(tokenAuth === null){
+      this.router.navigate(['login']);
+    }
+    
     this.rs.getTasks().subscribe(response => {
-      this.rs.getUser().subscribe(response => {
-        this.userAuth = response;if(this.userAuth.token === ""){
-          this.router.navigate(['login']);
-          
-        }});
       this.tasks = response;
     });
   }
@@ -69,7 +72,10 @@ export class ResttodoComponent implements OnInit {
       "token": ""
     }
     this.rs.updateUser(this.userLogin).subscribe(response => {});
-    this.router.navigate(['login']);
+    let tokenAuth = this.ls.remove('islogged');
+    if(tokenAuth){
+      this.router.navigate(['login']);
+    }
   }
 
   create() {
