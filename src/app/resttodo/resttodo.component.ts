@@ -6,6 +6,7 @@ import { ResttodoService } from '../resttodo.service';
 import { LocalStorageService } from '../local-storage.service';
 import { from } from 'rxjs';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SearchComponent } from '../search/search.component';
 
 
 @Component({
@@ -36,7 +37,19 @@ export class ResttodoComponent implements OnInit {
     });
   }
 
-  Search() {
+  // Search() {
+  //   if(this.taskSearch === ""){
+  //     this.ngOnInit();
+  //   }
+  //   else {
+  //     this.tasks = this.tasks.filter(res => {
+  //       return res.task.toLocaleLowerCase().match(this.taskSearch.toLocaleLowerCase());
+  //     });
+  //   }
+  // }
+
+  Search1(title: any) {
+    this.taskSearch = title;
     if(this.taskSearch === ""){
       this.ngOnInit();
     }

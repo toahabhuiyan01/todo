@@ -28,7 +28,7 @@
                             <th>
                                 <nav class="navbar row">
                                     <div class="justify-content-start">
-                                        <input type="text" class="form-control col-lg-12 col-md-12 col-sm-12" name="taskSearch" [(ngModel)]="taskSearch" (ngModelChange)="Search()" placeholder="Enter to search">
+                                        <app-search (taskToSearch)="Search1($event)"></app-search>
                                     </div>
                                     <div class="justify-content-end">
                                         <input type="submit" value="Add a Task" class="col btn btn-block btn-primary" (click)="create()">
